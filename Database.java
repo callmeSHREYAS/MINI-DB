@@ -3,7 +3,6 @@ import java.io.IOException;
 
 public class Database {
     private static StorageEngine st;
-    private static String  s="*";
     Database(String FILE){
         
         st=new StorageEngine(FILE);

@@ -5,6 +5,7 @@ public class Main {
         Database db = new Database("database.db");
         Scanner sc = new Scanner(System.in);
         System.out.println("DATABASE STARTED");
+        db.addAll();
         while (true) {
             String Method = sc.next();
             if (Method.equals("add")) {
@@ -18,13 +19,14 @@ public class Main {
                 db.select(key);
             } else if (Method.equals("delete")) {
                 String key = sc.next();
-                db.select(key);
+                db.delete(key);
             } else if (Method.equals("end")) {
                 break;
             } else {
                 System.out.println("WRONG QUERY !!!");
             }
         }
+        sc.close();;
 
     }
 }
