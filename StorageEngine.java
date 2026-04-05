@@ -25,8 +25,12 @@ public class StorageEngine {
                 int valLen = raf.readInt();
                 byte[] valBytes = new byte[valLen];
                 raf.readFully(valBytes);
-                index.put(new String(keyBytes), cur);
-
+                if (valLen == 0) {
+                    index.remove(new String(keyBytes)); 
+                } else {
+                    raf.readFully(valBytes);
+                    index.put(new String(keyBytes), cur);
+                }
             }
         }
     }
@@ -35,8 +39,8 @@ public class StorageEngine {
         String key = data.getKey();
         String value = data.getValue();
         try (RandomAccessFile raf = new RandomAccessFile(FILE, "rw")) {
-            raf.seek(raf.length());
             long offset = raf.length();
+            raf.seek(offset);
             index.put(key, offset);
             raf.writeInt(key.length());
             raf.writeBytes(key);
@@ -63,7 +67,7 @@ public class StorageEngine {
             for (Map.Entry<String, Long> entry : index.entrySet()) {
                 String key = entry.getKey();
                 long val = entry.getValue();
-                long st=val;
+                long st = val;
                 raf.seek(st);
                 int keyLen = raf.readInt();
                 byte[] keyBytes = new byte[keyLen];
@@ -78,7 +82,7 @@ public class StorageEngine {
                 raf.readFully(valBytes);
                 String value = new String(valBytes);
 
-                System.out.println(key+" -> " + value);
+                System.out.println(key + " -> " + value);
             }
 
         }
