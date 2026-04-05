@@ -22,4 +22,7 @@ public class Database {
     public void delete(String key) throws FileNotFoundException, IOException {
         st.delete(key);
     }
+    public void compact() throws FileNotFoundException, IOException {
+        st.compact();
+    }
 }

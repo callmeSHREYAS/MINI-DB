@@ -1,3 +1,4 @@
+import java.io.RandomAccessFile;
 import java.util.Scanner;
 
 public class Main {
@@ -20,13 +21,16 @@ public class Main {
             } else if (Method.equals("delete")) {
                 String key = sc.next();
                 db.delete(key);
+            } else if (Method.equals("compact")) {
+                db.compact();
             } else if (Method.equals("end")) {
                 break;
             } else {
                 System.out.println("WRONG QUERY !!!");
             }
         }
-        sc.close();;
+        sc.close();
+        ;
 
     }
 }
